@@ -17,4 +17,24 @@ class SiteController extends BaseController
         return view('landing_page');
     }
 
+    public function table()
+    {
+        return view('table');
+    }
+
+    public function edit_menu()
+    {
+        return view('edit_menu');
+    }
+
+    public function menu($resturaunt_id)
+    {
+        return view('menu', $resturaunt_id);
+    }
+
+    public function orders()
+    {
+        return view('orders');
+    }
+
 }

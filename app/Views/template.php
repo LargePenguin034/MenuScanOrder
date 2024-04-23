@@ -20,15 +20,15 @@
 
                 <ul class="navbar-nav ">
                   <li class="nav-item">
-                    <a class="nav-link text-light" aria-current="page" href="resturant.html">Tables</a>
+                    <a class="nav-link text-light" aria-current="page" href="<?= base_url("table"); ?>">Tables</a>
                   </li>
 
                   <li class="nav-item">
-                    <a class="nav-link text-light" href="admin_menu.html">Menu</a>
+                    <a class="nav-link text-light" href="<?= base_url("edit_menu"); ?>">Menu</a>
                   </li>
 
                   <li class="nav-item">
-                    <a class="nav-link text-light" href="orders.html">Orders</a>
+                    <a class="nav-link text-light" href="<?= base_url("orders"); ?>">Orders</a>
                   </li>
 
                 </ul>
