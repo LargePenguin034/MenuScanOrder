@@ -9,3 +9,5 @@ $routes->get('/', 'SiteController::index');
 $routes->get('/menu', 'SiteController::menu');
 $routes->get('/orders', 'SiteController::orders');
 $routes->get('/table', 'SiteController::table');
+$routes->get('/edit', 'SiteController::edit_menu');
+
