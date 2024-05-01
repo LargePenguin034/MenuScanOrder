@@ -22,14 +22,54 @@ class SiteController extends BaseController
         return view('table');
     }
 
-    public function edit_menu()
+    public function edit_menu($restaurant_id)
     {
-        return view('edit_menu');
+        $restaurantModel = new \App\Models\RestaurantModel();
+        $menuModel = new \App\Models\MenuModel();
+        $typeModel = new \App\Models\TypeModel();
+
+        $data['restaurant'] = $restaurantModel->find($restaurant_id);
+        
+
+        if (!$data['restaurant']) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Restaurant Not Found');
+        }
+
+        $data['types'] = $typeModel->where("restaurant_id", $restaurant_id)->findAll();
+
+        foreach ($data['types'] as $type) {
+            $data[$type['type']] = $menuModel->where("restaurant_id", $restaurant_id)->where("type", $type['type'])->findAll();
+        }
+
+        $data['Drinks'] = $menuModel->where("restaurant_id", $restaurant_id)->where("type", 'Drinks')->findAll();
+
+
+        return view('edit_menu', $data);
     }
 
-    public function menu($resturaunt_id)
+    public function menu($restaurant_id)
     {
-        return view('menu', $resturaunt_id);
+        $restaurantModel = new \App\Models\RestaurantModel();
+        $menuModel = new \App\Models\MenuModel();
+        $typeModel = new \App\Models\TypeModel();
+
+        $data['restaurant'] = $restaurantModel->find($restaurant_id);
+        
+
+        if (!$data['restaurant']) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Restaurant Not Found');
+        }
+
+        $data['types'] = $typeModel->where("restaurant_id", $restaurant_id)->findAll();
+
+        foreach ($data['types'] as $type) {
+            $data[$type['type']] = $menuModel->where("restaurant_id", $restaurant_id)->where("type", $type['type'])->findAll();
+        }
+
+        $data['Drinks'] = $menuModel->where("restaurant_id", $restaurant_id)->where("type", 'Drinks')->findAll();
+
+
+        return view('menu', $data);
     }
 
     public function orders()

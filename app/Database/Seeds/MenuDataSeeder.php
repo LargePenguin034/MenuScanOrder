@@ -45,8 +45,25 @@ class MenuDataSeeder extends Seeder
             ]
             ];
         //
+        $type_data = [
+            [
+                'restaurant_id' => '1',
+                'type' => 'Food',
+                'description' => 'Yum Yum Yum',
+            ],
+            [
+                'restaurant_id' => '1',
+                'type' => 'Drink',
+                'description' => 'Glug Glug Glub',
+            ],
+            ];
+
         foreach ($menu_data as $menu) {
             $this->db->table('Menu')->insert($menu);
+        }
+
+        foreach ($type_data as $type) {
+            $this->db->table('Type')->insert($type);
         }
 
         $this->db->table('Restaurant')->insert($restaurant);

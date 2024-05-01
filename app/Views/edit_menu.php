@@ -6,7 +6,7 @@
               <div class="row mx-100">
                 <div class="col mx-100">
                   <h1 class="text-light">
-                    Restoraunt Name - Table X
+                    <?= esc($restaurant['name']) ?> - Table X
                   </h1>
                 </div>
               </div>
@@ -15,18 +15,11 @@
   </header>
 
   <ul class="nav justify-content-center sticky-top bg-body-tertiary">
-    <li class="nav-item">
-      <a class="nav-link" href="#Burger">Burger</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#Meats">Meats</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#Salads">Salads</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#Drinks">Drinks</a>
-    </li>
+    <?php foreach ($types as $type): ?>
+      <li class="nav-item">
+        <a class="nav-link" href="#<?= esc($type['type']) ?>"><?= esc($type['type']) ?></a>
+      </li>
+    <?php endforeach; ?>
   </ul>
 
   <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
@@ -111,32 +104,35 @@
     </div>
   </div>
 
-
   <main>
-      <section id="Burger" class="py-5">
+  <?php foreach ($types as $type): ?>
+    <section id="<?= esc($type['type']) ?>" class="py-5">
         <div class="container">
           <div class="row gy-2">
             <div class="col-12">
               <figure class="text-center">
-                  <h2>Burger</h2>
-                <p class="text-body-secondary">Bun, lettuce, tomato, meat, bun </p>
+                  <h2><?= esc($type['type']) ?></h2>
+                <p class="text-body-secondary"><?= esc($type['description']) ?></p>
               </figure>
             </div>
 
-            <div class="col-12 col-lg-6">
+            <?php foreach (${$type['type']} as $item): ?>
+              <div class="col-12 col-lg-6">
               <div class="card">
                 <div class="row">
                   <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
+                  <img src="" class="img-fluid rounded-start" />
                   </div>
                   <div class="col-8">
                     <div class="card-body">
-                      <h5 class="card-title">1</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <h5 class="card-title"><?= esc($item['name']) ?></h5>
+                      <p class="card-text"><?= esc($item['description']) ?></p>
                       <div class="container">
                         <div class="row">
-                          <div class="col-3">2510kJ</div>
-                          <div class="col-3">$13.90</div>
+                          <?php if ($item['kj'] != 0): ?>
+                            <div class="col-3"><?= esc($item['kj']) ?>kJ</div>
+                          <?php endif; ?>
+                          <div class="col-3">$<?= esc($item['price']) ?></div>
                           <div class="col-6">
                             <a href="" class="card-block stretched-link text-decoration-none text-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
                               <strong>EDIT</strong>
@@ -150,424 +146,12 @@
               </div>
             </div>
 
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">2</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">3</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">4</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">5</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">6</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            <?php endforeach; ?>
 
           </div>
         </div>
       </section>
-
-
-      <section id="Meats" class="py-5">
-        <div class="container">
-          <div class="row gy-2">
-            <div class="col-12">
-              <figure class="text-center">
-                  <h2>Meats</h2>
-                <p class="text-body-secondary">chicken, beef, pork, lamb </p>
-              </figure>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">1</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">2</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">3</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">4</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">5</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">6</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      </section>
-
-      <section id="Salads" class="py-5">
-        <div class="container">
-          <div class="row gy-2">
-            <div class="col-12">
-              <figure class="text-center"> 
-                  <h2>Salads</h2>
-                <p class="text-body-secondary">vegitables</p>
-              </figure>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">1</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">2</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">3</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">4</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">5</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">6</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      </section>
-
-      <section id="Drinks" class="py-5">
-        <div class="container">
-          <div class="row gy-2">
-            <div class="col-12">
-              <figure class="text-center">
-                  <h2>Drinks</h2>
-                <p class="text-body-secondary">We got them</p>
-              </figure>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">1</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">2</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">3</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">4</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">5</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="Images\placeholder.png" class="img-fluid rounded-start">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                      <h5 class="card-title">6</h5>
-                      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      </section>
+  <?php endforeach; ?>
   </main>
 
   <div class="nav justify-content-center sticky-bottom bg-body-tertiary">

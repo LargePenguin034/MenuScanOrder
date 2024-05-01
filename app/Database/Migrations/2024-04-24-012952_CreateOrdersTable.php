@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateOrderTable extends Migration
+class CreateOrdersTable extends Migration
 {
     public function up()
     {
@@ -15,6 +15,11 @@ class CreateOrderTable extends Migration
                     'constraint' => 11,
                     'unsigned' => TRUE,
                     'auto_increment' => TRUE
+                ],
+                'restaurant_id' => [
+                    'type' => 'INT',
+                    'constraint' => 11,
+                    'unsigned' => TRUE,
                 ],
                 'status' => [
                     'type' => 'VARCHAR',
@@ -33,13 +38,13 @@ class CreateOrderTable extends Migration
             ]);
 
             $this->forge->addKey('order_id', TRUE); // Set order_id as primary key
-            $this->forge->createTable('Order'); // Create the Order table
+            $this->forge->createTable('Orders'); // Create the Order table
         
     }
 
     public function down()
     {
         //
-        $this->forge->dropTable('Order');
+        $this->forge->dropTable('Orders');
     }
 }
