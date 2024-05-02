@@ -103,7 +103,7 @@
                   </div>
                   <div class="col-8">
                     <div class="card-body">
-                      <h5 class="card-title"><?= esc($item['name']) ?></h5>
+                      <h5 class="card-title"><?= esc($item['item_name']) ?></h5>
                       <p class="card-text"><?= esc($item['description']) ?></p>
                       <div class="container">
                         <div class="row">

@@ -15,7 +15,7 @@ class CreateMenuTable extends Migration
                     'constraint' => 11,
                     'unsigned' => TRUE,
                 ],
-                'name' => [
+                'item_name' => [
                     'type' => 'VARCHAR',
                     'constraint' => '255',
                 ],
@@ -36,9 +36,16 @@ class CreateMenuTable extends Migration
                 'image' => [
                     'type' => 'BLOB',
                 ],
+                'item_id' => [
+                    'type' => 'int',
+                    'constraint' => '20',
+                    'unsigned' => TRUE,
+                    'auto_increment' => TRUE
+                ],
+
             ]);
             
-            $this->forge->addKey('name', TRUE); // Set item_id as primary key
+            $this->forge->addKey('item_id', TRUE); // Set item_id as primary key
             $this->forge->createTable('Menu'); // Create the Menu table
         //
     }

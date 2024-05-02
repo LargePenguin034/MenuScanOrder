@@ -28,6 +28,13 @@ class SiteController extends BaseController
         $menuModel = new \App\Models\MenuModel();
         $typeModel = new \App\Models\TypeModel();
 
+        if ($this->request->getMethod() === 'POST') {
+            // Retrieve the submitted form data.
+            $data['new'] = $this->request->getPost();
+            $data['new']['restaurant_id'] = $restaurant_id;
+            $menuModel->insert($data['new']);
+        }
+
         $data['restaurant'] = $restaurantModel->find($restaurant_id);
         
 
@@ -46,6 +53,7 @@ class SiteController extends BaseController
 
         return view('edit_menu', $data);
     }
+
 
     public function menu($restaurant_id)
     {

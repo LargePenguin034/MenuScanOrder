@@ -24,7 +24,7 @@
                   </li>
 
                   <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= base_url("edit"); ?>">Menu</a>
+                    <a class="nav-link text-light" href="<?= base_url("edit/1"); ?>">Edit Menu</a>
                   </li>
 
                   <li class="nav-item">

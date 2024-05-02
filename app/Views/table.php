@@ -9,7 +9,7 @@
                     <div class="card-body">
                       <h5 class="card-title">Table 1</h5>
                       <a href="#" class="btn btn-primary">Download</a>
-                      <a href="menu.html" class="btn btn-warning">Visit</a>
+                      <a href="<?= base_url("menu/1"); ?>" class="btn btn-warning">Visit</a>
                     </div>
                   </div>
             </div>
@@ -20,7 +20,7 @@
                     <div class="card-body">
                       <h5 class="card-title">Table 1</h5>
                       <a href="#" class="btn btn-primary">Download</a>
-                      <a href="menu.html" class="btn btn-warning">Visit</a>
+                      <a href="<?= base_url("menu/1"); ?>" class="btn btn-warning">Visit</a>
                     </div>
                   </div>
             </div>
