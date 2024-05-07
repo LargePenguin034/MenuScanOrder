@@ -61,12 +61,6 @@
               </div>
             </div>
           </div>
-          <div class="col-3">
-            <div class="mb-3">
-              <label for="image" class="form-label">Image</label>
-              <input class="form-control" type="file" id='image' name='image'>
-            </div>
-          </div>
         </div>
         <button type="submit" class="btn btn-primary">Add item</button>
       </form>
@@ -91,24 +85,23 @@
             <div class="col-12 col-lg-6">
               <div class="card">
                 <div class="row">
-                  <div class="col-4">
-                    <img src="" class="img-fluid rounded-start" />
-                  </div>
                   <div class="col-8">
                     <div class="card-body">
                       <h5 class="card-title"><?= esc($item['item_name']) ?></h5>
                       <p class="card-text"><?= esc($item['description']) ?></p>
-                      <div class="container">
-                        <div class="row">
-                          <?php if ($item['kj'] != 0) : ?>
-                            <div class="col-3"><?= esc($item['kj']) ?>kJ</div>
-                          <?php endif; ?>
-                          <div class="col-3">$<?= esc($item['price']) ?></div>
-                          <div class="col-6">
-                            <a href="" class="card-block stretched-link text-decoration-none text-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
-                              <strong>EDIT</strong>
-                            </a>
-                          </div>
+                    </div>
+                  </div>
+                  <div class="col-4 py-3">
+                    <div class="container">
+                      <div class="row">
+                        <?php if ($item['kj'] != 0) : ?>
+                          <div class="col-12"><?= esc($item['kj']) ?>kJ</div>
+                        <?php endif; ?>
+                        <div class="col-12">$<?= esc($item['price']) ?></div>
+                        <div class="col-12">
+                          <a href="" class="card-block stretched-link text-decoration-none text-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
+                            <strong>EDIT</strong>
+                          </a>
                         </div>
                       </div>
                     </div>
