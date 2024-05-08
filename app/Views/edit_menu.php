@@ -25,13 +25,14 @@
 
 <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasBottomLabel"><?= isset($name) ? 'Edit Menu Item' : 'Add Menu Item' ?></h5>
+    <h5 class="offcanvas-title" id="MenuLabel">Edit Menu Item</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body small">
     <div class="container-fluid">
       <form method="post" action="<?= base_url('edit/' . esc($restaurant['restaurant_id'])) ?>">
         <div class="row">
+          <input type="text" class="form-control" id='item_id' name='item_id' value="" hidden>
           <div class="col-6 mb-3">
             <label for='item_name' class="form-label">Name</label>
             <input type="text" class="form-control" id='item_name' name='item_name' value="" required>
@@ -42,7 +43,15 @@
           </div>
           <div class="col-6 mb-3">
             <label for='type' class="form-label">Type</label>
-            <input type="text" class="form-control" id="type" name="type" value="" required>
+            <select class="form-select form-select-sm" id="type" name="type" aria-label="Small select example">
+              <?php foreach ($types as $type) : ?>
+                <option value="<?= esc($type['type']) ?>"><?= esc($type['type']) ?></option>
+              <?php endforeach; ?>
+            </select>
+            <div class="input-group mb-3 py-2">
+              <input type="text" class="form-control" placeholder="" id="typeaddition">
+              <button class="btn btn-success" type="button" id="typeaddition" onclick="addtype()">AddType</button>
+            </div>
           </div>
           <div class="col-3 mb-3">
             <label for="kj" class="form-label">Energy</label>
@@ -61,8 +70,16 @@
               </div>
             </div>
           </div>
+
         </div>
-        <button type="submit" class="btn btn-primary">Add item</button>
+        <div class="row">
+          <div class="col">
+            <button id="addeditButton" type="submit" class="btn btn-primary">Add item</button>
+          </div>
+          <div class="col">
+            <button id="deleteButton" type="submit" class="btn btn-danger">Delete item</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -99,7 +116,7 @@
                         <?php endif; ?>
                         <div class="col-12">$<?= esc($item['price']) ?></div>
                         <div class="col-12">
-                          <a href="" class="card-block stretched-link text-decoration-none text-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
+                          <a href="" onclick='edit(<?= json_encode($item) ?>)' class="card-block stretched-link text-decoration-none text-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
                             <strong>EDIT</strong>
                           </a>
                         </div>
@@ -120,8 +137,9 @@
 
 <div class="nav justify-content-center sticky-bottom bg-body-tertiary">
   <div class="d-grid gap-2 col-5 mx-auto p-3">
-    <button type="button" class="btn btn-success btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">Add Item</button>
+    <button onclick="add()" type="button" class="btn btn-success btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">Add Item</button>
   </div>
 </div>
 
+<script type='text/javascript' src="<?php echo base_url(); ?>js/editmenu.js"></script>
 <?= $this->endSection() ?>

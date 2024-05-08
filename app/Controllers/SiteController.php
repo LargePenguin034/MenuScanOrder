@@ -1,4 +1,6 @@
-<?php namespace App\Controllers;
+<?php
+
+namespace App\Controllers;
 
 use CodeIgniter\Controller;
 
@@ -9,7 +11,7 @@ class SiteController extends BaseController
         // Load the URL helper, it will be useful in the next steps
         // Adding this within the __construct() function will make it 
         // available to all views in the SiteController
-        helper('url'); 
+        helper('url');
     }
 
     public function index()
@@ -32,11 +34,18 @@ class SiteController extends BaseController
             // Retrieve the submitted form data.
             $data['new'] = $this->request->getPost();
             $data['new']['restaurant_id'] = $restaurant_id;
-            $menuModel->insert($data['new']);
+            if (!$data['new']['item_id']) {
+                if (!$typeModel->where("type", $data['new']['type'])->where("restaurant_id", $restaurant_id)->find()) {
+                    $typeModel->insert($data['new']);
+                }
+                $menuModel->insert($data['new']);
+            } else {
+                $menuModel->update($data['new']['item_id'], $data['new']);
+            }
         }
 
         $data['restaurant'] = $restaurantModel->find($restaurant_id);
-        
+
 
         if (!$data['restaurant']) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Restaurant Not Found');
@@ -50,7 +59,6 @@ class SiteController extends BaseController
 
         $data['Drinks'] = $menuModel->where("restaurant_id", $restaurant_id)->where("type", 'Drinks')->findAll();
 
-
         return view('edit_menu', $data);
     }
 
@@ -62,7 +70,7 @@ class SiteController extends BaseController
         $typeModel = new \App\Models\TypeModel();
 
         $data['restaurant'] = $restaurantModel->find($restaurant_id);
-        
+
 
         if (!$data['restaurant']) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Restaurant Not Found');
@@ -84,5 +92,4 @@ class SiteController extends BaseController
     {
         return view('orders');
     }
-
 }

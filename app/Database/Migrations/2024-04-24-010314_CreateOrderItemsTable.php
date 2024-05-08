@@ -13,6 +13,8 @@ class CreateOrderItemsTable extends Migration
                         'order_id' => [
                             'type' => 'INT',
                             'constraint' => 11,
+                            'unsigned' => TRUE,
+                            'auto_increment' => TRUE
                         ],
                         'item_name' => [
                             'type' => 'VARCHAR',

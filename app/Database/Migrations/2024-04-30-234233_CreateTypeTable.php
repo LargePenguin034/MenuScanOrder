@@ -21,10 +21,17 @@ class CreateTypeTable extends Migration
                 ],
                 'description' => [
                     'type' => 'TEXT',
-                ]
+                ],
+                'type_id' =>  [
+                    'type' => 'INT',
+                    'constraint' => 11,
+                    'unsigned' => TRUE,
+                    'auto_increment' => TRUE
+
+                    ]
             ]);
 
-            $this->forge->addKey('type', TRUE); // Set order_id as primary key
+            $this->forge->addKey('type_id', TRUE); // Set order_id as primary key
             $this->forge->createTable('Type'); // Create the Order table
     }
 
