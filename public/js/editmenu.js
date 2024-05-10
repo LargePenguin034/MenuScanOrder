@@ -8,6 +8,7 @@ function addtype() {
     if (option.text != "") {
         x.add(option);
     }
+    document.getElementById("typeaddition").value = "";
 
 }
 
@@ -20,7 +21,7 @@ function edit(item) {
     document.getElementById("price").value = item["price"]
     document.getElementById("MenuLabel").innerHTML = "Edit Menu Item"
     document.getElementById("addeditButton").innerHTML = "Edit Item"
-    document.getElementById("deleteButton").disabled = flase
+    document.getElementById("deleteButton").disabled = false
 }
 
 function add() {

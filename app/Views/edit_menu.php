@@ -7,7 +7,19 @@
       <div class="row mx-100">
         <div class="col mx-100">
           <h1 class="text-light">
-            <?= esc($restaurant['name']) ?> - Table X
+            <div class="row">
+              <div class="col">
+                <form action="<?= base_url('edit_name/' . esc($restaurant['restaurant_id'])) ?>" method="post">
+                  <div class="input-group mb-3 py-2">
+                    <button class="btn btn-warning" type="submit">Change</button>
+                    <input type="text" class="form-control" value="<?= esc($restaurant['name']) ?>" id="Name Change" name="name" required>
+                  </div>
+                </form>
+              </div>
+              <div class="col">
+                - Table X
+              </div>
+            </div>
           </h1>
         </div>
       </div>
@@ -74,10 +86,10 @@
         </div>
         <div class="row">
           <div class="col">
-            <button id="addeditButton" type="submit" class="btn btn-primary">Add item</button>
+            <button id="addeditButton" type="submit" name="action" value="Modify" class="btn btn-primary">Add item</button>
           </div>
           <div class="col">
-            <button id="deleteButton" type="submit" class="btn btn-danger">Delete item</button>
+            <button id="deleteButton" type="submit" name="action" value="Delete" onclick="return confirm('Are you sure you want to delete this menu item?')" class="btn btn-danger">Delete item</button>
           </div>
         </div>
       </form>
@@ -92,13 +104,30 @@
       <div class="container">
         <div class="row gy-2">
           <div class="col-12">
-            <figure class="text-center">
-              <h2><?= esc($type['type']) ?></h2>
-              <p class="text-body-secondary"><?= esc($type['description']) ?></p>
-            </figure>
+            <div class="row align-items-center justify-content-center">
+              <div class="col-3">
+                <form action="<?= base_url('edit_type/' . esc($restaurant['restaurant_id'])) ?>" method="post">
+                  <div class="input-group mb-3 py-2">
+                    <button class="btn btn-warning" type="submit">Change</button>
+                    <input name="type_id" value="<?= esc($type['type_id']) ?>" hidden></input>
+                    <input type="text" class="form-control" value="<?= esc($type['type']) ?>" id="Type Change" name="type" required>
+                  </div>
+                </form>
+              </div>
+              <div class="row align-items-center justify-content-center">
+                <div class="col-6">
+                  <form action="<?= base_url('edit_type/' . esc($restaurant['restaurant_id'])) ?>" method="post">
+                    <div class="input-group mb-3 py-2">
+                      <input name="type_id" value="<?= esc($type['type_id']) ?>" hidden></input>
+                      <button class="btn btn-warning" type="submit">Change</button>
+                      <input type="text" class="form-control" value="<?= esc($type['description']) ?>" id="Name Change" name="description" required>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <?php foreach (${$type['type']} as $item) : ?>
+          <?php foreach (${"_".$type['type']} as $item) : ?>
             <div class="col-12 col-lg-6">
               <div class="card">
                 <div class="row">

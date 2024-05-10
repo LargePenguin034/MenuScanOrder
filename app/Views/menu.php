@@ -96,7 +96,7 @@
               </figure>
             </div>
 
-            <?php foreach (${$type['type']} as $item) : ?>
+            <?php foreach (${"_".$type['type']} as $item) : ?>
               <div class="col-12 col-lg-6">
                 <div class="card">
                   <div class="row">

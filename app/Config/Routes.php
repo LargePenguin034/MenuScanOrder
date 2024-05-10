@@ -12,5 +12,9 @@ $routes->get('/table', 'SiteController::table');
 
 // Routes for admin
 $routes->get('/edit/(:num)', 'SiteController::edit_menu/$1');
+$routes->get('/edit_name/(:num)', 'SiteController::edit_menu/$1');
+$routes->get('/edit_type/(:num)', 'SiteController::edit_menu/$1');
 $routes->match(['get', 'post'], '/edit/(:num)', 'SiteController::edit_menu/$1');
+$routes->match(['get', 'post'], '/edit_name/(:num)', 'SiteController::edit_name/$1');
+$routes->match(['get', 'post'], '/edit_type/(:num)', 'SiteController::edit_type/$1');
 
