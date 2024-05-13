@@ -24,6 +24,22 @@ class CreateRestaurantTable extends Migration
                         'time_created' => [
                             'type' => 'TIMESTAMP',
                         ],
+                        'username' => [
+                            'type' => 'VARCHAR',
+                            'constraint' => '255',
+                        ],
+                        'email' => [
+                            'type' => 'VARCHAR',
+                            'constraint' => '255',
+                        ],
+                        'status' => [
+                            'type' => 'VARCHAR',
+                            'constraint' => '100',
+                        ],
+                        'isAdmin' => [
+                            'type' => 'TINYINT',
+                            'constraint' => '1',
+                        ],
                     ]);
                                         
                     $this->forge->addKey('restaurant_id', TRUE); // Set restaurant_id as primary key

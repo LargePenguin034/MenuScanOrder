@@ -14,6 +14,22 @@ class SiteController extends BaseController
         // Adding this within the __construct() function will make it 
         // available to all views in the SiteController
         helper('url');
+        $this->session = session();
+
+        
+    }
+
+    public function admin() {
+        $restaurantModel = new \App\Models\RestaurantModel();
+        $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
+        return view('admin', $data);
+    }
+
+    public function delete_restaurant($restaurant_id) {
+        $restaurantModel = new \App\Models\RestaurantModel();
+        $restaurantModel->delete($restaurant_id);
+        $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
+        return view('admin', $data);
     }
 
     public function index()
@@ -21,9 +37,11 @@ class SiteController extends BaseController
         return view('landing_page');
     }
 
-    public function table()
+    public function table($restaurant_id)
     {
-        return view('table');
+        $restaurantModel = new \App\Models\RestaurantModel();
+        $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
+        return view('table', $data);
     }
 
     public function edit_menu($restaurant_id)

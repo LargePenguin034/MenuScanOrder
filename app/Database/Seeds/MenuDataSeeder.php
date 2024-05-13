@@ -12,7 +12,11 @@ class MenuDataSeeder extends Seeder
         [
             'restaurant_id' => '1',
             'name' => 'testRestaurant',
-            'time_created' => time()
+            'time_created' => time(),
+            'username' => 'Aaron',
+            'email' => 'aaron.squidlips@gmail.com',
+            'status' => 'active',
+            'admin' => 1
 
         ];
 
