@@ -71,7 +71,7 @@ class Auth extends BaseController
         // Set user information in the session
         session()->set([
             'isLoggedIn' => true,
-            'userId' => $user['user_id'],
+            'userId' => $user['restaurant_id'],
             'email' => $user['email'],
             'name' => $user['name'],
             'isAdmin' => $user['isAdmin'] // Assumes 'isAdmin' field is a boolean in your user table
