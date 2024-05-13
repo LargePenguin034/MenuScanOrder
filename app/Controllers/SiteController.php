@@ -15,7 +15,6 @@ class SiteController extends BaseController
         // available to all views in the SiteController
         helper('url');
         $this->session = session();
-
         
     }
 
@@ -37,15 +36,17 @@ class SiteController extends BaseController
         return view('landing_page');
     }
 
-    public function table($restaurant_id)
+    public function table()
     {
+        $restaurant_id = ["restaurant_id"];
         $restaurantModel = new \App\Models\RestaurantModel();
         $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
         return view('table', $data);
     }
 
-    public function edit_menu($restaurant_id)
+    public function edit_menu()
     {
+        $restaurant_id = $_SESSION["restaurant_id"];
         $menuModel = new \App\Models\MenuModel();
         $typeModel = new \App\Models\TypeModel();
 
@@ -79,29 +80,32 @@ class SiteController extends BaseController
             }
         }
 
-        return view('edit_menu', $this->menu_data($restaurant_id));
+        return view('edit_menu', $this->menu_data());
     }
 
 
 
-    public function edit_name($restaurant_id)
+    public function edit_name()
     {
+        $restaurant_id = $_SESSION["restaurant_id"];
         $restaurantModel = new \App\Models\RestaurantModel();
         $data = $this->request->getPost();
         $restaurantModel->update($restaurant_id, $data);
         return view('edit_menu', $this->menu_data($restaurant_id));
     }
 
-    public function edit_type($restaurant_id)
+    public function edit_type()
     {
+        $restaurant_id = $_SESSION["restaurant_id"];
         $typeModel = new \App\Models\TypeModel();
         $data = $this->request->getPost();
         $typeModel->update($data["type_id"], $data);
         return view('edit_menu', $this->menu_data($restaurant_id));
     }
 
-    public function menu_data($restaurant_id)
+    public function menu_data()
     {
+        $restaurant_id = $_SESSION["restaurant_id"];
         $restaurantModel = new \App\Models\RestaurantModel();
         $menuModel = new \App\Models\MenuModel();
         $typeModel = new \App\Models\TypeModel();

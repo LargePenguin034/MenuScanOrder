@@ -9,7 +9,7 @@
           <h1 class="text-light">
             <div class="row">
               <div class="col">
-                <form action="<?= base_url('edit_name/' . esc($restaurant['restaurant_id'])) ?>" method="post">
+                <form action="<?= base_url('owner/edit_name' . esc($restaurant['restaurant_id'])) ?>" method="post">
                   <div class="input-group mb-3 py-2">
                     <button class="btn btn-warning" type="submit">Change</button>
                     <input type="text" class="form-control" value="<?= esc($restaurant['name']) ?>" id="Name Change" name="name" required>
@@ -42,7 +42,7 @@
   </div>
   <div class="offcanvas-body small">
     <div class="container-fluid">
-      <form method="post" action="<?= base_url('edit/' . esc($restaurant['restaurant_id'])) ?>">
+      <form method="post" action="<?= base_url('owner/edit') ?>">
         <div class="row">
           <input type="text" class="form-control" id='item_id' name='item_id' value="" hidden>
           <div class="col-6 mb-3">
@@ -106,7 +106,7 @@
           <div class="col-12">
             <div class="row align-items-center justify-content-center">
               <div class="col-3">
-                <form action="<?= base_url('edit_type/' . esc($restaurant['restaurant_id'])) ?>" method="post">
+                <form action="<?= base_url('owner/edit_type') ?>" method="post">
                   <div class="input-group mb-3 py-2">
                     <button class="btn btn-warning" type="submit">Change</button>
                     <input name="type_id" value="<?= esc($type['type_id']) ?>" hidden></input>
@@ -116,7 +116,7 @@
               </div>
               <div class="row align-items-center justify-content-center">
                 <div class="col-6">
-                  <form action="<?= base_url('edit_type/' . esc($restaurant['restaurant_id'])) ?>" method="post">
+                  <form action="<?= base_url('owner/edit_type') ?>" method="post">
                     <div class="input-group mb-3 py-2">
                       <input name="type_id" value="<?= esc($type['type_id']) ?>" hidden></input>
                       <button class="btn btn-warning" type="submit">Change</button>

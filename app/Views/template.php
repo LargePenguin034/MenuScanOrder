@@ -19,24 +19,42 @@
       <div class="container-fluid">
         <a class="navbar-brand text-light">MenuScan Dashboard</a>
         <div class="collapse navbar-collapse" id="navbarNav">
+          <?php if (session()->get('isLoggedIn')): ?>
 
-          <ul class="navbar-nav ">
-            <li class="nav-item">
-              <a class="nav-link text-light" aria-current="page" href="<?= base_url("table"); ?>">Tables</a>
-            </li>
+            <ul class="navbar-nav ">
+              <li class="nav-item">
+                <a class="nav-link text-light" aria-current="page"
+                  href="<?= base_url("owner/tables"); ?>">Tables</a>
+              </li>
 
-            <li class="nav-item">
-              <a class="nav-link text-light" href="<?= base_url("edit/1"); ?>">Edit Menu</a>
-            </li>
+              <li class="nav-item">
+                <a class="nav-link text-light"
+                  href="<?= base_url("owner/edit"); ?>">Edit Menu</a>
+              </li>
 
-            <li class="nav-item">
-              <a class="nav-link text-light" href="<?= base_url("orders"); ?>">Orders</a>
-            </li>
+              <li class="nav-item">
+                <a class="nav-link text-light"
+                  href="<?= base_url("owner/order"); ?>">Orders</a>
+              </li>
 
-          </ul>
+              <?php if (session()->get('isAdmin')): ?>
+                <li class="nav-item"></li>
+                <a class="nav-link text-light me-2 <?= service('router')->getMatchedRoute()[0] == 'admin' ? 'active' : ''; ?>"
+                  href="<?= base_url("admin"); ?>">Admin Panel</a>
+                </li>
+              <?php endif; ?>
+
+            </ul>
+          <?php endif; ?>
         </div>
         <div class="d-flex">
-          <a class="nav-link text-light me-2" href="<?= base_url("login"); ?>">Login</a>
+
+          <?php if (session()->get('isLoggedIn')): ?>
+            <a class="nav-link text-light me-2" href="<?= base_url("logout"); ?>">Logout</a>
+          <?php else: ?>
+            <a class="nav-link text-light me-2 <?= service('router')->getMatchedRoute()[0] == 'login' ? 'active' : ''; ?>"
+              href="<?= base_url("login"); ?>">Login</a>
+          <?php endif; ?>
         </div>
       </div>
     </nav>

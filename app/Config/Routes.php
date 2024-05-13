@@ -9,17 +9,20 @@ use CodeIgniter\Router\RouteCollection;
 #cutomer routes
 $routes->get('/menu/(:num)', 'SiteController::menu/$1');
 
-
 #Owner routes
 $routes->get('/', 'SiteController::index');
-$routes->get('/orders/(:num)', 'SiteController::orders/$1');
-$routes->get('/table/(:num)', 'SiteController::table/$1');
-$routes->get('/edit/(:num)', 'SiteController::edit_menu/$1');
-$routes->get('/edit_name/(:num)', 'SiteController::edit_menu/$1');
-$routes->get('/edit_type/(:num)', 'SiteController::edit_menu/$1');
-$routes->match(['get', 'post'], '/edit/(:num)', 'SiteController::edit_menu/$1');
-$routes->match(['get', 'post'], '/edit_name/(:num)', 'SiteController::edit_name/$1');
-$routes->match(['get', 'post'], '/edit_type/(:num)', 'SiteController::edit_type/$1');
+
+$routes->group('owner', ['filter' => 'login'], function ($routes) {
+    $routes->get('order', 'SiteController::orders');
+    $routes->get('tables', 'SiteController::table');
+    $routes->get('edit', 'SiteController::edit_menu');
+    $routes->get('edit_name', 'SiteController::edit_menu');
+    $routes->get('edit_type', 'SiteController::edit_menu');
+    $routes->match(['get', 'post'], 'edit', 'SiteController::edit_menu');
+    $routes->match(['get', 'post'], 'edit_name', 'SiteController::edit_name');
+    $routes->match(['get', 'post'], 'edit_type', 'SiteController::edit_type');
+});
+
 
 
 # auth routes
@@ -28,5 +31,7 @@ $routes->get('/login/callback', 'Auth::google_callback');  // Callback route aft
 $routes->get('/logout', 'Auth::logout');
 
 #admin routes
-$routes->get('/admin', 'SiteController::admin');
-$routes->get('/admin/delete/(:num)', 'SiteController::delete_restaurant/$1');
+$routes->group('admin', ['filter' => 'admin'], function ($routes) {
+    $routes->get('/', 'SiteController::admin');
+    $routes->get('/delete/(:num)', 'SiteController::delete_restaurant/$1');
+});
