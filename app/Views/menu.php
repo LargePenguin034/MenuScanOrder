@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= esc($restaurant['name']) ?> - Table 1</title>
+  <title><?= esc($restaurant['name']) ?> - Table <?= esc($table_no) ?></title>
   <!-- This is the main stylesheet for Bootstrap. It includes all the CSS necessary for Bootstrap's components and utilities to work. -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <!-- Include Bootstrap Icons -->
@@ -19,7 +19,7 @@
         <div class="row mx-100">
           <div class="col mx-100">
             <h1 class="text-light">
-              <?= esc($restaurant['name']) ?> - Table 1
+              <?= esc($restaurant['name']) ?> - Table <?= esc($table_no) ?>
             </h1>
           </div>
         </div>

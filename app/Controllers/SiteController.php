@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 
+use App\Libraries\phpqrcode\QRtools;
+
 use function PHPSTORM_META\type;
 
 class SiteController extends BaseController
@@ -15,16 +17,19 @@ class SiteController extends BaseController
         // available to all views in the SiteController
         helper('url');
         $this->session = session();
-        
+        $this->qrcode = new QRtools();
+
     }
 
-    public function admin() {
+    public function admin()
+    {
         $restaurantModel = new \App\Models\RestaurantModel();
         $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
         return view('admin', $data);
     }
 
-    public function delete_restaurant($restaurant_id) {
+    public function delete_restaurant($restaurant_id)
+    {
         $restaurantModel = new \App\Models\RestaurantModel();
         $restaurantModel->delete($restaurant_id);
         $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
@@ -38,11 +43,28 @@ class SiteController extends BaseController
 
     public function table()
     {
-        $restaurant_id = ["restaurant_id"];
+        $restaurant_id = $_SESSION["restaurant_id"];
         $restaurantModel = new \App\Models\RestaurantModel();
-        $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
+        $data = $restaurantModel->where('restaurant_id', $restaurant_id)->find()[0];
+
+        if ($this->request->getMethod() === 'POST') {
+            $postData = $this->request->getPost();
+            if ($postData['action'] == 'SET') {
+                $data["tables"] = $postData["tableNo"];
+            }
+            else if ($postData['action'] == 'ADD') {
+                $data["tables"] = $data["tables"] + 1;
+            } else if ($postData['action'] == 'REMOVE') {
+                if ($data["tables"] > 1) {
+                    $data["tables"] = $data["tables"] - 1;
+                }
+            }
+            $restaurantModel->update($restaurant_id, $data);
+        }
+
         return view('table', $data);
     }
+
 
     public function edit_menu()
     {
@@ -80,7 +102,7 @@ class SiteController extends BaseController
             }
         }
 
-        return view('edit_menu', $this->menu_data());
+        return view('edit_menu', $this->menu_data($restaurant_id));
     }
 
 
@@ -103,9 +125,8 @@ class SiteController extends BaseController
         return view('edit_menu', $this->menu_data($restaurant_id));
     }
 
-    public function menu_data()
+    public function menu_data($restaurant_id)
     {
-        $restaurant_id = $_SESSION["restaurant_id"];
         $restaurantModel = new \App\Models\RestaurantModel();
         $menuModel = new \App\Models\MenuModel();
         $typeModel = new \App\Models\TypeModel();
@@ -123,15 +144,18 @@ class SiteController extends BaseController
             $data["_" . $type['type']] = $menuModel->where("restaurant_id", $restaurant_id)->where("type", $type['type'])->findAll();
         }
 
-        $data['Drinks'] = $menuModel->where("restaurant_id", $restaurant_id)->where("type", 'Drinks')->findAll();
-
 
         return $data;
     }
 
-    public function menu($restaurant_id)
+    public function menu($restaurant_id, $table_no)
     {
-        return view('menu', $this->menu_data($restaurant_id));
+        $data = $this->menu_data($restaurant_id);
+        if ($data['restaurant']['tables'] < $table_no) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Table Not Found');
+        }
+        $data['table_no'] = $table_no;
+        return view('menu', $data);
     }
 
     public function orders()
