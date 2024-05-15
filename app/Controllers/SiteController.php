@@ -4,7 +4,11 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 
-use App\Libraries\phpqrcode\QRtools;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+
+use TCPDF;
+
 
 use function PHPSTORM_META\type;
 
@@ -17,7 +21,6 @@ class SiteController extends BaseController
         // available to all views in the SiteController
         helper('url');
         $this->session = session();
-        $this->qrcode = new QRtools();
 
     }
 
@@ -41,8 +44,14 @@ class SiteController extends BaseController
         return view('landing_page');
     }
 
+    public function test()
+    {
+        return view('phptest');
+    }
+
     public function table()
     {
+
         $restaurant_id = $_SESSION["restaurant_id"];
         $restaurantModel = new \App\Models\RestaurantModel();
         $data = $restaurantModel->where('restaurant_id', $restaurant_id)->find()[0];
@@ -51,8 +60,7 @@ class SiteController extends BaseController
             $postData = $this->request->getPost();
             if ($postData['action'] == 'SET') {
                 $data["tables"] = $postData["tableNo"];
-            }
-            else if ($postData['action'] == 'ADD') {
+            } else if ($postData['action'] == 'ADD') {
                 $data["tables"] = $data["tables"] + 1;
             } else if ($postData['action'] == 'REMOVE') {
                 if ($data["tables"] > 1) {
@@ -62,7 +70,108 @@ class SiteController extends BaseController
             $restaurantModel->update($restaurant_id, $data);
         }
 
+        foreach (range(1, $data["tables"]) as $index) {
+            $qrCode = QrCode::create('https://infs3202-a2db50f7.uqcloud.net/MenuScanOrder/menu/' . $restaurant_id . '/' . $index);
+            $writer = new PngWriter;
+            $data['qrcode'][$index] = $writer->write($qrCode)->getDataUri();
+        }
+
+
         return view('table', $data);
+    }
+
+    public function downloadAll()
+    {
+        $restaurantModel = new \App\Models\RestaurantModel();
+        $restaurant_id = $_SESSION["restaurant_id"];
+        $data = $restaurantModel->where('restaurant_id', $restaurant_id)->find()[0];
+
+        // Create new PDF document
+        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+
+        // Set document information
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('MenuScanOrder');
+        $pdf->SetTitle('Table PDF for ' . $data['name']);
+
+        // Set font
+        $pdf->SetFont('helvetica', '', 12);
+
+        $style = array(
+            'border' => 2,
+            'vpadding' => 'auto',
+            'hpadding' => 'auto',
+            'fgcolor' => array(0, 0, 0),
+            'bgcolor' => false, //array(255,255,255)
+            'module_width' => 1, // width of a single module in points
+            'module_height' => 1 // height of a single module in points
+        );
+
+
+        // Add content
+        foreach (range(1, $data['tables']) as $index) {
+
+            if (($index-1) % 4 == 0) {
+                $pdf->AddPage();
+            }
+
+            if ($index % 4 == 0 || $index % 4 == 3) {
+                $height = 100;
+            } else {
+                $height = 0;
+            }
+
+            if ($index % 2 == 0) {
+                $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,H', 105, $height + 10, 90, 90, $style);
+                $pdf->Text(140, $height + 90, 'Table - ' . $index);
+            } else {
+                $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,H', 10, $height + 10, 90, 90, $style);
+                $pdf->Text(45, $height + 90, 'Table - ' . $index);
+            }
+
+
+        }
+
+        // Output the PDF as a download 
+        $pdf->Output('Table PDF for ' . $data['name'] . '.pdf', 'D');
+    }
+
+    public function downloadOne($table_no)
+    {
+        $restaurantModel = new \App\Models\RestaurantModel();
+        $restaurant_id = $_SESSION["restaurant_id"];
+        $data = $restaurantModel->where('restaurant_id', $restaurant_id)->find()[0];
+
+        // Create new PDF document
+        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+
+        // Set document information
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('MenuScanOrder');
+        $pdf->SetTitle('Table PDF for ' . $data['name']);
+
+        // Set font
+        $pdf->SetFont('helvetica', '', 12);
+
+        $style = array(
+            'border' => 2,
+            'vpadding' => 'auto',
+            'hpadding' => 'auto',
+            'fgcolor' => array(0, 0, 0),
+            'bgcolor' => false, //array(255,255,255)
+            'module_width' => 1, // width of a single module in points
+            'module_height' => 1 // height of a single module in points
+        );
+
+        $pdf->addPage();
+
+        // Add content
+        $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,H', 60, 80, 90, 90, $style);
+        $pdf->Text(95, 160, 'Table - ' . $table_no);
+
+
+        // Output the PDF as a download 
+        $pdf->Output('Table ' . $table_no . ' PDF for ' . $data['name'] . '.pdf', 'D');
     }
 
 

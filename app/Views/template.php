@@ -20,7 +20,6 @@
         <a class="navbar-brand text-light">MenuScan Dashboard</a>
         <div class="collapse navbar-collapse" id="navbarNav">
           <?php if (session()->get('isLoggedIn')): ?>
-
             <ul class="navbar-nav ">
               <li class="nav-item">
                 <a class="nav-link text-light" aria-current="page"

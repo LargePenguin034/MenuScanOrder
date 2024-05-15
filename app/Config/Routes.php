@@ -9,6 +9,10 @@ use CodeIgniter\Router\RouteCollection;
 #cutomer routes
 $routes->get('/menu/(:num)/(:num)', 'SiteController::menu/$1/$2');
 
+$routes->get('/test', 'SiteController::test');
+
+
+
 #Owner routes
 $routes->get('/', 'SiteController::index');
 
@@ -18,6 +22,8 @@ $routes->group('owner', ['filter' => 'login'], function ($routes) {
     $routes->get('edit', 'SiteController::edit_menu');
     $routes->get('edit_name', 'SiteController::edit_menu');
     $routes->get('edit_type', 'SiteController::edit_menu');
+    $routes->get('download', 'SiteController::downloadAll');
+    $routes->get('download/(:num)', 'SiteController::downloadOne/$1');
     $routes->match(['get', 'post'], 'edit', 'SiteController::edit_menu');
     $routes->match(['get', 'post'], 'edit_name', 'SiteController::edit_name');
     $routes->match(['get', 'post'], 'edit_type', 'SiteController::edit_type');
