@@ -8,6 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 
 #cutomer routes
 $routes->get('/menu/(:num)/(:num)', 'SiteController::menu/$1/$2');
+$routes->match(['get', 'post'], '/menu/(:num)/(:num)', 'SiteController::menu/$1/$2');
 
 $routes->get('/test', 'SiteController::test');
 

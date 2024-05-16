@@ -10,19 +10,27 @@ class CreateOrderItemsTable extends Migration
     {
                     // Define the Orders table
                     $this->forge->addField([
-                        'order_id' => [
+                        'item_no' => [
                             'type' => 'INT',
                             'constraint' => 11,
                             'unsigned' => TRUE,
                             'auto_increment' => TRUE
                         ],
-                        'item_name' => [
-                            'type' => 'VARCHAR',
-                            'constraint' => '255',
+                        'order_id' => [
+                            'type' => 'INT',
+                            'constraint' => 11,
                         ],
+                        'item_id' => [
+                            'type' => 'INT',
+                            'constraint' => 11,
+                        ],
+                        'amount' => [
+                            'type' => 'INT',
+                            'constraint' => 11,
+                        ],                        
                     ]);
 
-                    $this->forge->addKey('order_id', TRUE); // Set order_id as primary key
+                    $this->forge->addKey('item_no', TRUE); // Set order_id as primary key
                     $this->forge->createTable('OrderItems'); // Create the Orders table
                 //
         //

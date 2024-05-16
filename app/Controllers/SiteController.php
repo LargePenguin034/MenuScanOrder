@@ -44,11 +44,6 @@ class SiteController extends BaseController
         return view('landing_page');
     }
 
-    public function test()
-    {
-        return view('phptest');
-    }
-
     public function table()
     {
 
@@ -264,6 +259,26 @@ class SiteController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Table Not Found');
         }
         $data['table_no'] = $table_no;
+
+        if ($this->request->getMethod() === 'POST') {
+            $orderItemsModel = new \App\Models\OrderItemsModel();
+            $ordersModel = new \App\Models\OrdersModel();
+
+            $order['restaurant_id'] = $restaurant_id;
+            $order['status'] = 'Cooking';
+            $order['table'] = $table_no;
+            $order['time_created'] = date('Y-m-d H:i:s', time());
+
+            $orderItem['order_id'] = $ordersModel->insert($order);
+
+            foreach ($this->request->getPost() as $item_id => $amount) {
+                $orderItem['item_id'] = $item_id;
+                $orderItem['amount'] = $amount;
+                $orderItemsModel->insert($orderItem);
+            }
+            
+        }
+
         return view('menu', $data);
     }
 
