@@ -284,6 +284,31 @@ class SiteController extends BaseController
 
     public function orders()
     {
-        return view('orders');
+        $orderItemsModel = new \App\Models\OrderItemsModel();
+        $ordersModel = new \App\Models\OrdersModel();
+        $menuModel = new \App\Models\MenuModel();
+
+        $restaurant_id = $_SESSION["restaurant_id"];
+
+        if ($this->request->getMethod() === 'POST') {
+            $order = $this->request->getPost();
+            $update['status'] = 'Completed';
+            $ordersModel->update($order['order_id'], $update);
+        }
+
+        $data['orders']['cooking'] = $ordersModel->where('restaurant_id', $restaurant_id)->where('status', 'Cooking')->findAll();
+        $data['orders']['completed'] = $ordersModel->where('restaurant_id', $restaurant_id)->where('status', 'Completed')->findAll();
+        $data['orders']['recalled'] = $ordersModel->where('restaurant_id', $restaurant_id)->where('status', 'Recalled')->findAll();
+
+        foreach ($data['orders']['cooking'] as $order_id => $order) {
+            $data['order_id'][$order['order_id']] = $orderItemsModel->where('order_id', $order['order_id'])->join('Menu', 'OrderItems.item_id=Menu.item_id')->findAll();
+            $total = 0;
+            foreach ($data['order_id'][$order['order_id']] as $item) {
+                $total += $item['price'] * $item['amount'];
+            }
+            $data['orders']['cooking'][$order_id]['totalPrice'] = $total;
+        }   
+
+        return view('orders', $data);
     }
 }

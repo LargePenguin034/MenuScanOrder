@@ -56,10 +56,10 @@
             </div>
           </div>
           <div class="col-6">
-            <p><strong>Burger 1</strong></p>
+            <p><strong></strong></p>
           </div>
           <div class="col-3" id="itemPrice">
-            <p><strong>$14.00</strong></p>
+            <p><strong></strong></p>
           </div>
         </div>
       </div>

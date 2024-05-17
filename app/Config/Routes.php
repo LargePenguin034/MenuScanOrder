@@ -29,6 +29,7 @@ $routes->group('owner', ['filter' => 'login'], function ($routes) {
     $routes->match(['get', 'post'], 'edit_name', 'SiteController::edit_name');
     $routes->match(['get', 'post'], 'edit_type', 'SiteController::edit_type');
     $routes->match(['get', 'post'], 'tables', 'SiteController::table');
+    $routes->match(['get', 'post'], 'order', 'SiteController::orders');
 });
 
 
