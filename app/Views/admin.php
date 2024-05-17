@@ -8,17 +8,6 @@
                 <h2>User Management - Admin Panel</h2>
             </div>
 
-            <div class="row mb-4">
-                <div class="col-md-6 mb-3 mb-lg-0">
-                    <form method="get" action="<?= base_url('admin/'); ?>">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Enter your search..." name="search">
-                            <button class="btn btn-primary" type="submit">Search</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
             <table class="table table-striped">
                 <thead>
                     <tr>

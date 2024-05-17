@@ -24,29 +24,49 @@ class SiteController extends BaseController
 
     }
 
+    /**
+     * Loads the restaurant model and sets the resturant id in session to the origional
+     * the renders the admin view
+     * 
+     */
     public function admin()
     {
-
+        $_SESSION["restaurant_id"] = $_SESSION["admin_restaurant_id"];
         $restaurantModel = new \App\Models\RestaurantModel();
         $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
         return view('admin', $data);
     }
 
+    /**
+     * @param int resturanut id
+     * deletes the specivied resturant
+     * then redirects to admin view
+     * 
+     */
     public function delete_restaurant($restaurant_id)
     {
         $restaurantModel = new \App\Models\RestaurantModel();
         $restaurantModel->delete($restaurant_id);
 
         $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
-        return view('admin', $data);
+        return redirect('admin');
     }
 
+    /**
+     * @param int resturanut id
+     * sets the session to the specified restaurant
+     * then redirects to the editing menu for the restauranut
+     * 
+     */
     public function admin_edit($restaurant_id)
     {
         $_SESSION["restaurant_id"] = $restaurant_id;
-        return view('edit_menu', $this->menu_data($restaurant_id));
+        return redirect('owner/edit');
     }
 
+    /**
+     * loads the index menu
+     */
     public function index()
     {
         return view('landing_page');

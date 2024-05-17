@@ -14,12 +14,15 @@
 </head>
 
 <style>
-  .flex-wrapper {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+.flex-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: flex-start;
+}
+
+
 </style>
 
 <body class="flex-wrapper bg-body-tertiary">
