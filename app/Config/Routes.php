@@ -19,6 +19,7 @@ $routes->get('/', 'SiteController::index');
 
 $routes->group('owner', ['filter' => 'login'], function ($routes) {
     $routes->get('order', 'SiteController::orders');
+    $routes->get('order/recall', 'SiteController::recall');
     $routes->get('tables', 'SiteController::table');
     $routes->get('edit', 'SiteController::edit_menu');
     $routes->get('edit_name', 'SiteController::edit_menu');

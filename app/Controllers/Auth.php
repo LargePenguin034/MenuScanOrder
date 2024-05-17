@@ -77,6 +77,7 @@ class Auth extends BaseController
             'admin_restaurant_id' => $user['restaurant_id'],
             'email' => $user['email'],
             'name' => $user['name'],
+            'orderType' => "Cooking",
             'isAdmin' => $user['isAdmin'] // Assumes 'isAdmin' field is a boolean in your user table
         ]);
 

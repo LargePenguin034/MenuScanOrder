@@ -325,19 +325,35 @@ class SiteController extends BaseController
             $ordersModel->update($order['order_id'], $update);
         }
 
-        $data['orders']['cooking'] = $ordersModel->where('restaurant_id', $restaurant_id)->where('status', 'Cooking')->findAll();
-        $data['orders']['completed'] = $ordersModel->where('restaurant_id', $restaurant_id)->where('status', 'Completed')->findAll();
-        $data['orders']['recalled'] = $ordersModel->where('restaurant_id', $restaurant_id)->where('status', 'Recalled')->findAll();
 
-        foreach ($data['orders']['cooking'] as $order_id => $order) {
+        if ($_SESSION['orderType'] == "Cooking") {
+        $data['orders']= $ordersModel->where('restaurant_id', $restaurant_id)->where('status', 'Cooking')->findAll();
+    } elseif ($_SESSION['orderType'] == "Completed") {
+        $data['orders'] = $ordersModel->where('restaurant_id', $restaurant_id)->where('status', 'Completed')->findAll();
+    } 
+
+        foreach ($data['orders'] as $order_id => $order) {
             $data['order_id'][$order['order_id']] = $orderItemsModel->where('order_id', $order['order_id'])->join('Menu', 'OrderItems.item_id=Menu.item_id')->findAll();
             $total = 0;
             foreach ($data['order_id'][$order['order_id']] as $item) {
                 $total += $item['price'] * $item['amount'];
             }
-            $data['orders']['cooking'][$order_id]['totalPrice'] = $total;
+            $data['orders'][$order_id]['totalPrice'] = $total;
         }
-
         return view('orders', $data);
     }
+
+    public function recall(){
+        $ordersModel = new \App\Models\OrdersModel();
+        $recall_list = $ordersModel->where('restaurant_id', $_SESSION['restaurant_id'])->where('status', "Completed")->orderBy("time_completed", 'desc')->find();
+        if (!$recall_list) {
+            return redirect('owner/order');
+        }
+        $recall = $recall_list[0];
+        $recall['status'] = 'Cooking';
+        $ordersModel->update($recall['order_id'], $recall);
+
+        return redirect('owner/order');
+    }
+
 }
