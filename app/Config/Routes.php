@@ -42,5 +42,6 @@ $routes->get('/logout', 'Auth::logout');
 #admin routes
 $routes->group('admin', ['filter' => 'admin'], function ($routes) {
     $routes->get('/', 'SiteController::admin');
-    $routes->get('/delete/(:num)', 'SiteController::delete_restaurant/$1');
+    $routes->get('edit/(:num)', 'SiteController::admin_edit/$1');
+    $routes->get('delete/(:num)', 'SiteController::delete_restaurant/$1');
 });

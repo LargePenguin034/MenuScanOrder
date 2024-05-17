@@ -20,10 +20,10 @@
   </div>
 
   <div class="nav justify-content-center sticky-bottom bg-body-tertiary">
-    <div class="d-grid col-4 mx-auto">
+    <div class="d-grid col-sm-4 col-2 mx-auto">
       <a type="button" href="<?= base_url("owner/download"); ?>" class="btn btn-primary btn-lg">Download all</a>
     </div>
-    <div class="d-grid col-6 mx-auto">
+    <div class="d-grid col-sm-6 col-7 mx-auto">
       <form action="<?= base_url('owner/tables') ?>" method="post">
         <div class="row">
           <div class="d-grid col-5 mx-auto">
@@ -33,10 +33,10 @@
                 required>
             </div>
           </div>
-          <div class="d-grid  col-3 mx-auto">
+          <div class="d-grid col-2 mx-auto">
             <button class="btn btn-success btn-lg" type="submit" name="action" value="ADD">Add</button>
           </div>
-          <div class="d-grid col-3 mx-auto">
+          <div class="d-grid col-2 mx-auto">
             <button class="btn btn-danger btn-lg" type="submit" name="action" value="REMOVE">Remove</button>
           </div>
         </div>

@@ -76,18 +76,16 @@
     <footer>
         <ul class="nav nav-pills nav-fill fixed-bottom">
             <li class="nav-item">
-                
-                <a class="nav-link active" href="#">Priority</a>
-
+                <button class="nav-link active" href="#">Priority</button>
             </li>
             <li class="nav-item">
-                <a class="nav-link active bg-success" href="#">Bump</a>
+                <button class="nav-link active bg-success" href="#">Bump</button>
             </li>
             <li class="nav-item">
-                <a class="nav-link active bg-danger" href="#">Recall</a>
+                <button class="nav-link active bg-danger" href="#">Recall</button>
             </li>
             <li class="nav-item">
-                <a class="nav-link active bg-danger" href="#">Recall Last</a>
+                <button class="nav-link active bg-danger" href="#">Recall Last</button>
             </li>
         </ul>
     </footer>

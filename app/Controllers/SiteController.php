@@ -26,6 +26,7 @@ class SiteController extends BaseController
 
     public function admin()
     {
+
         $restaurantModel = new \App\Models\RestaurantModel();
         $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
         return view('admin', $data);
@@ -35,8 +36,15 @@ class SiteController extends BaseController
     {
         $restaurantModel = new \App\Models\RestaurantModel();
         $restaurantModel->delete($restaurant_id);
+
         $data['users'] = $restaurantModel->orderBy('username', 'ASC')->findAll();
         return view('admin', $data);
+    }
+
+    public function admin_edit($restaurant_id)
+    {
+        $_SESSION["restaurant_id"] = $restaurant_id;
+        return view('edit_menu', $this->menu_data($restaurant_id));
     }
 
     public function index()
@@ -106,7 +114,7 @@ class SiteController extends BaseController
         // Add content
         foreach (range(1, $data['tables']) as $index) {
 
-            if (($index-1) % 4 == 0) {
+            if (($index - 1) % 4 == 0) {
                 $pdf->AddPage();
             }
 
@@ -172,6 +180,7 @@ class SiteController extends BaseController
 
     public function edit_menu()
     {
+
         $restaurant_id = $_SESSION["restaurant_id"];
         $menuModel = new \App\Models\MenuModel();
         $typeModel = new \App\Models\TypeModel();
@@ -276,7 +285,7 @@ class SiteController extends BaseController
                 $orderItem['amount'] = $amount;
                 $orderItemsModel->insert($orderItem);
             }
-            
+
         }
 
         return view('menu', $data);
@@ -307,7 +316,7 @@ class SiteController extends BaseController
                 $total += $item['price'] * $item['amount'];
             }
             $data['orders']['cooking'][$order_id]['totalPrice'] = $total;
-        }   
+        }
 
         return view('orders', $data);
     }

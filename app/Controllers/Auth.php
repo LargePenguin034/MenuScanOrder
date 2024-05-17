@@ -61,6 +61,8 @@ class Auth extends BaseController
             $newData = [
                 'email' => $google_account_info->email,
                 'name' => $google_account_info->name,
+                'status' => 'active',
+                'tables' => 1,
                 'isAdmin' => false, // Default new user as not an admin
             ];
             $restaurantModel->insert($newData);
@@ -72,6 +74,7 @@ class Auth extends BaseController
         session()->set([
             'isLoggedIn' => true,
             'restaurant_id' => $user['restaurant_id'],
+            'admin_restaurant_id' => $user['restaurant_id'],
             'email' => $user['email'],
             'name' => $user['name'],
             'isAdmin' => $user['isAdmin'] // Assumes 'isAdmin' field is a boolean in your user table
@@ -81,7 +84,7 @@ class Auth extends BaseController
         if (session()->get('isAdmin')) {
             return redirect()->to('/admin');
         } else {
-            return redirect()->to('/table/' . session()->get('restaurant_id'));
+            return redirect()->to('/owner/tables');
         }
     }
 

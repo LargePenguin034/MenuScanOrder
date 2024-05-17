@@ -55,7 +55,7 @@
           </div>
           <div class="col-6 mb-3">
             <label for='type' class="form-label">Type</label>
-            <select class="form-select form-select-sm" id="type" name="type" aria-label="Small select example">
+            <select class="form-select form-select-sm" id="type" name="type" required>
               <?php foreach ($types as $type) : ?>
                 <option value="<?= esc($type['type']) ?>"><?= esc($type['type']) ?></option>
               <?php endforeach; ?>
@@ -171,4 +171,5 @@
 </div>
 
 <script type='text/javascript' src="<?php echo base_url(); ?>js/editmenu.js"></script>
+
 <?= $this->endSection() ?>
